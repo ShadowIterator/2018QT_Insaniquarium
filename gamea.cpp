@@ -161,7 +161,7 @@ bool GameA::eventFilter(QObject *watched, QEvent *event)
         if (mouseEvent->buttons()&Qt::LeftButton && money >= 20)
         {
             qDebug() << "food";
-			ObjectWidget* food = new ObjectWidget(":settings/food.txt", ui->gameView);
+			ObjectWidget* food = new ObjectWidget(":/image/settings/food.txt", ui->gameView);
             food -> show();
             foods.push_back(food);
             money -= 20;

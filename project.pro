@@ -56,3 +56,6 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     resource.qrc
+
+DISTFILES += \
+    settings/food.txt

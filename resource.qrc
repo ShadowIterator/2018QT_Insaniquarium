@@ -133,5 +133,6 @@
         <file>resource/carnivore.png</file>
         <file>resource/deadgubbi.png</file>
         <file>resource/hungrygubbi.png</file>
+        <file>settings/food.txt</file>
     </qresource>
 </RCC>
