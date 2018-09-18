@@ -1,0 +1,5 @@
+{
+type food
+cost 20
+img_url :/image/resource/food.png
+}
