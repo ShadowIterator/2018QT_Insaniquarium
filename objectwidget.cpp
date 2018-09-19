@@ -7,6 +7,7 @@ ObjectWidget::ObjectWidget(const SI_String& fileName, QWidget *parent) : QWidget
 	obj = new SI::Fish(fileName);
 	obj->set_widget(this);
 	_imgurl = obj->getProperty("img_url");
+	qDebug() << _imgurl;
 	W = obj->getProperty("width").toInt();
 	H = obj->getProperty("height").toInt();
 }
@@ -47,7 +48,7 @@ void ObjectWidget::paintEvent(QPaintEvent *event)
 
 	DB x = obj->P.x;
 	DB y = obj->P.y;
-	qDebug() << "x = " << x << "y = " << y;
+//	qDebug() << "x = " << x << "y = " << y;
 	setGeometry(x, y, W, H);
 	QPainter p(this);
 	p.setRenderHint(QPainter::Antialiasing, true);
@@ -56,7 +57,7 @@ void ObjectWidget::paintEvent(QPaintEvent *event)
 	//widget长宽比和图片长宽比
 	double fr = (static_cast<double>(W))/(static_cast<double>(H));
 	double pr = 60.0 / 58.0;
-	_pic.load(_imgurl);
+	_pic.load(obj->getProperty("img_url"));
 
 //	qDebug() << width() << ' ' << height();
 	//自适应widget边框大小

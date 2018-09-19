@@ -6,6 +6,7 @@
 #include "utils.h"
 #include "si_geometry.hpp"
 #include "objectwidget.h"
+#include "gubbiwidget.h"
 
 GameA::GameA(QWidget *parent) :
     QWidget(parent),
@@ -23,22 +24,26 @@ GameA::GameA(QWidget *parent) :
     //主计时器
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(updateState()));
-    timer->start(5);
+	timer->start(10);
 
     //fishmove
-    QTimer *timer3 = new QTimer(this);
-    connect(timer3,SIGNAL(timeout()),this,SLOT(fishMove()));
-    timer3->start(500);
+//    QTimer *timer3 = new QTimer(this);
+//    connect(timer3,SIGNAL(timeout()),this,SLOT(fishMove()));
+//    timer3->start(500);
 
     //gold
-    QTimer *timer2 = new QTimer(this);
-    connect(timer2,SIGNAL(timeout()),this,SLOT(addgold()));
-	timer2->start(1000);
+//    QTimer *timer2 = new QTimer(this);
+//    connect(timer2,SIGNAL(timeout()),this,SLOT(addgold()));
+//	timer2->start(1000);
 
     ui->gameView->installEventFilter(this);
 
 	connect(this, SIGNAL(_increaseMoney(int, ObjectWidget*, const SI_String&)), this, SLOT(increaseMoney(int, ObjectWidget*, const SI_String&)));
 	connect(this, SIGNAL(_product(SI_String,int,int,SI_Object*,SI_String)), this, SLOT(product(SI_String,int,int,SI_Object*,SI_String)));
+
+//	emit _product("gold", 400, 400, nullptr, SI::noinfo);
+//	emit _product("gold", 200, 100, nullptr, SI::noinfo);
+	emit _product("gubbi", 300, 300, nullptr, SI::noinfo);
 }
 
 //防止内存泄漏
@@ -77,91 +82,107 @@ void GameA::on_fish1_clicked()
         ui->money->setText(s);
 
         //加入新古比鱼
-//        Gubbi* gubbi = new Gubbi;
-//        fishWidget* newfish = new fishWidget(ui->gameView, gubbi);
-//        newfish->show();
-//        fishs.push_back(newfish);
+//		Gubbi* gubbi = new Gubbi;
+//		fishWidget* newfish = new fishWidget(ui->gameView, gubbi);
+//		newfish->show();
+//		fishs.push_back(newfish);
 		emit _product("gubbi", 30, 30, nullptr, SI::noinfo);
     }
 }
 
 void GameA::updateState()
 {
+	tmps.clear();
+//	qDebug() << "upd state " << objs.length();
 	for(auto item: objs)
 	{
+//		qDebug() << "update: "<< item->obj->getProperty("type");
 		item->update();
+		if(item->obj->getProperty("valid") == "true")
+			tmps.push_back(item);
 	}
 	update();
+	objs.clear();
+	for(auto item: tmps)
+	{
+		objs.push_back(item);
+	}
 
-    for (auto item: fishs)
-    {
-        item->updatefish();
-        item->update();
-        if(item->getType() == GUBBI)
-        {
-			for (auto i = objs.begin(); i != objs.end(); )
-            {
-				ObjectWidget* food = *i;
-                if (Utils::judgeOverlap(QVector2D((*item).pos()), QVector2D((*food).pos())))
-                {
-                    item->growing();
-					i = objs.erase(i);
-                    food->deleteLater();
-                }
-                else
-                {
-                    i++;
-                }
-            }
-        }
+//    for (auto item: fishs)
+//    {
+//        item->updatefish();
+//        item->update();
+//        if(item->getType() == GUBBI)
+//        {
+//			for (auto i = objs.begin(); i != objs.end(); )
+//            {
+//				ObjectWidget* food = *i;
+//                if (Utils::judgeOverlap(QVector2D((*item).pos()), QVector2D((*food).pos())))
+//                {
+//                    item->growing();
+//					i = objs.erase(i);
+//                    food->deleteLater();
+//                }
+//                else
+//                {
+//                    i++;
+//                }
+//            }
+//        }
 
-        if(item->getType() == CARNIVORE)
-        {
-            for (auto j = fishs.begin(); j != fishs.end();)
-            {
-                fishWidget* fish = *j;
-                if(fish->getType() == GUBBI)
-                {
-                    if (Utils::judgeOverlap(QVector2D((*item).pos()), QVector2D((*fish).pos())))
-                    {
-                        item->growing();
-                        j = fishs.erase(j);
-                        fish->deleteLater();
-                    }
-                    else
-                    {
-                        j++;
-                    }
-                }
-            }
-        }
-    }
+//        if(item->getType() == CARNIVORE)
+//        {
+//            for (auto j = fishs.begin(); j != fishs.end();)
+//            {
+//                fishWidget* fish = *j;
+//                if(fish->getType() == GUBBI)
+//                {
+//                    if (Utils::judgeOverlap(QVector2D((*item).pos()), QVector2D((*fish).pos())))
+//                    {
+//                        item->growing();
+//                        j = fishs.erase(j);
+//                        fish->deleteLater();
+//                    }
+//                    else
+//                    {
+//                        j++;
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 void GameA::addgold()
 {
+	qDebug() << fishs.length();
     for(auto item: fishs)
     {
         QRect rect = item->geometry();
-        GoldWidget* gold = new GoldWidget(ui->gameView);
-		gold->setPosition(rect.x() + 25, rect.y() + 34);
-		gold->setScene(this);
-        gold -> show();
-        connect(gold, SIGNAL(gold_clicked(GoldWidget*)), this, SLOT(collectGold(GoldWidget*)));
-        golds.push_back(gold);
+//		ObjectWidget* gold = new GoldWidget(ui->gameView);
+//		gold->setPosition(rect.x() + 25, rect.y() + 34);
+//		gold->setScene(this);
+//		gold -> show();
+
+		emit _product("gold", rect.x() + 25, rect.y() + 34, nullptr, SI::noinfo);
+
+
+//        connect(gold, SIGNAL(gold_clicked(GoldWidget*)), this, SLOT(collectGold(GoldWidget*)));
+//        golds.push_back(gold);
 //        gold->setGeometry(, 15, 15);
     }
 }
 
 void GameA::collectGold(GoldWidget* gptr)
 {
-    money += gptr->_amount;
-    //gptr->hide();
-    gptr->deleteLater();
-    gptr = nullptr;
-    qDebug() << "delete";
-    update();
-    ui->money->setText(QString::number(money));
+//	qDebug() << "collect gold";
+//    money += gptr->_amount;
+//    //gptr->hide();
+//    gptr->deleteLater();
+//    gptr = nullptr;
+//    qDebug() << "delete";
+//    update();
+//    ui->money->setText(QString::number(money));
 }
 
 void GameA::increaseMoney(int amt, ObjectWidget* src, const SI::SI_String &info)
@@ -177,6 +198,7 @@ void GameA::increaseMoney(int amt, ObjectWidget* src, const SI::SI_String &info)
 void GameA::product(const SI::SI_String &productName, int x, int y, SI::SI_Object *src, const SI::SI_String &info)
 {
 //	SI_String productFilePath = ":/image/settings/" + productName;
+	qDebug() << productName << ": " << x << " " << y;
 	ObjectWidget* pobj = nullptr;
 	if(productName == "food")
 	{
@@ -184,8 +206,15 @@ void GameA::product(const SI::SI_String &productName, int x, int y, SI::SI_Objec
 	}
 	if(productName == "gubbi")
 	{
-		pobj = new fishWidget(ui->gameView)
+		pobj = new GubbiWidget(ui->gameView);
 	}
+	if(productName == "gold")
+	{
+		pobj = new GoldWidget(ui->gameView);
+	}
+
+	if(!pobj)
+		return ;
 
 	pobj->setPosition(x, y);
 	pobj->setScene(this);

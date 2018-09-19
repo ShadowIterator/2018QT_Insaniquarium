@@ -33,6 +33,7 @@ public:
     QVector<GoldWidget*> golds;
 //	QVector<ObjectWidget*> foods;
 	QVector<ObjectWidget*> objs;
+	QVector<ObjectWidget*> tmps;
 
 private slots:
     void on_menu_clicked();

@@ -6,6 +6,7 @@ valid true
 width 24
 height 24
 hang_only true
+hungry_increase 1000
 V.x 0
 V.y 1
 }

@@ -15,6 +15,8 @@ namespace SI
 		Vector2lf V;
 		GameA* pscene;
 		QWidget* pwidget;
+		Point2lf tarP;
+		int prodCounter;
 	public:
 		Fish(QObject* parent = 0);
 		Fish(const Fish& tfish, QObject *parent = 0);

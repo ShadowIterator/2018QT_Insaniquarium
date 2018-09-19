@@ -12,6 +12,7 @@
 #include<string>
 #include<iostream>
 #include<QMetaType>
+#include<cmath>
 
 #define DEBUG
 
@@ -45,6 +46,7 @@ namespace SI
 
 	const SI_String noinfo="";
 
+	const DB PI = 3.14159265358979323846;
 
 
 	void __inputQString(QTextStream& in,QString& s);

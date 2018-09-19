@@ -38,7 +38,6 @@ SOURCES += main.cpp\
     si_object.cpp \
     objectwidget.cpp \
     carnivorewidget.cpp \
-    gubbiwidget.cpp \
     food.cpp \
     gubbiwidget.cpp
 

@@ -13,6 +13,7 @@ namespace SI
 	bool SI_Object::__initInfo(const SI_String& fileName)
 	{
 //		SI_String cardName=getProperty("name");
+		qDebug() << fileName;
 		QFile fobj;
 		QTextStream objin;
 //		SI_String cardPath,temp;
@@ -69,6 +70,7 @@ namespace SI
 
 	SI_String SI_Object::getProperty(const SI_String& propertyName) const
 	{
+//		qDebug() << "query property " << propertyName;
 		QMap<SI_String,SI_String>::const_iterator it=properties.find(propertyName);
 		if(it == properties.end()) return "NoResult";
 		return it.value();

@@ -166,6 +166,15 @@ public:
 	{
 		fin >> x >> y;
 	}
+
+	void _rotate(T theta)
+	{
+		T x0 = x;
+		T y0 = y;
+		x = x0 * std::cos(theta) - y0 * std::sin(theta);
+		y = x0 * std::sin(theta) + y0 * std::cos(theta);
+	}
+
 //	Vector2 Reflect(Vector2 N)
 //	{
 //		return *this - N * (2 * ((*this) % N));

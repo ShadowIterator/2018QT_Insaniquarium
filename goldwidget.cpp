@@ -50,10 +50,10 @@ void GoldWidget::mousePressEvent(QMouseEvent* ev)
 	if(obj->getProperty("valid") != "true")
 		return ;
 	obj->setProperty("valid", "false");
-//	this->hide();
-	this->deleteLater();
+	this->hide();
+//	this->deleteLater();
 	qDebug() << "gold clicked start emit";
-	qDebug() << "gold clicked pscene" << obj->pscene;
-	emit obj->pscene->_increaseMoney(100, this, SI::noinfo);
+//	qDebug() << "gold clicked pscene" << obj->pscene;
+	emit obj->pscene->_increaseMoney(obj->getProperty("money_increase").toInt(), this, SI::noinfo);
 	qDebug() << "gold clicked emit done";
 }
