@@ -5,4 +5,7 @@ img_url :/image/resource/food.png
 valid true
 width 24
 height 24
+hang_only true
+V.x 0
+V.y 1
 }

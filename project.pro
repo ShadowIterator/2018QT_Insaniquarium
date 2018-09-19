@@ -38,6 +38,8 @@ SOURCES += main.cpp\
     si_object.cpp \
     objectwidget.cpp \
     carnivorewidget.cpp \
+    gubbiwidget.cpp \
+    food.cpp \
     gubbiwidget.cpp
 
 HEADERS  += mainwindow.h \
@@ -53,6 +55,8 @@ HEADERS  += mainwindow.h \
     si_geometry.hpp \
     objectwidget.h \
     carnivorewidget.h \
+    gubbiwidget.h \
+    food.h \
     gubbiwidget.h
 
 FORMS    += mainwindow.ui \

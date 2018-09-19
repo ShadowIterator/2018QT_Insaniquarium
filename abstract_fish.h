@@ -14,23 +14,26 @@ namespace SI
 		Point2lf P;
 		Vector2lf V;
 		GameA* pscene;
+		QWidget* pwidget;
 	public:
 		Fish(QObject* parent = 0);
 		Fish(const Fish& tfish, QObject *parent = 0);
 		Fish(const SI_String& fileName, QObject *parent = 0);
 
 		void set_scene(GameA* tpscene);
+		void set_widget(QWidget* tpwidget);
 		void make_connection();
 		void setPosition(DB x, DB y);
 		void setVelocity(DB x, DB y);
 	signals:
 	public slots:
-		void update(const SI_String &info);
-		void hunting(const SI_String &info);
-		void hang(const SI_String &info);
-		void grow(const SI_String &info);
-		void product(const SI_String &info);
-		void die(const SI_String &info);
+		virtual void update();
+		virtual void hunting(const SI_String &info);
+		virtual void hang(const SI_String &info);
+		virtual void grow(const SI_String &info);
+		virtual void product(const SI_String &info);
+		virtual void die(const SI_String &info);
+		virtual void eat(Fish* tar, const SI_String &info);
 	};
 
 

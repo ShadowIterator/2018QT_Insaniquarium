@@ -31,7 +31,8 @@ public:
     long int money;
     QVector<fishWidget*> fishs;
     QVector<GoldWidget*> golds;
-	QVector<ObjectWidget*> foods;
+//	QVector<ObjectWidget*> foods;
+	QVector<ObjectWidget*> objs;
 
 private slots:
     void on_menu_clicked();
@@ -45,9 +46,11 @@ private slots:
     void on_pushButton_clicked();
 
 signals:
+	void _product(const SI_String&, int, int, SI_Object*, const SI_String&);
 	void _increaseMoney(int, ObjectWidget*, const SI_String&);
 private slots:
 	void increaseMoney(int, ObjectWidget*, const SI_String&);
+	void product(const SI_String& productName, int x, int y, SI_Object* src, const SI_String& info);
 private:
     Ui::GameA *ui;
     QVBoxLayout *layout;

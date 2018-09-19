@@ -5,9 +5,15 @@ ObjectWidget::ObjectWidget(const SI_String& fileName, QWidget *parent) : QWidget
 {
 //	resize(300, 300);
 	obj = new SI::Fish(fileName);
+	obj->set_widget(this);
 	_imgurl = obj->getProperty("img_url");
 	W = obj->getProperty("width").toInt();
 	H = obj->getProperty("height").toInt();
+}
+
+ObjectWidget::ObjectWidget(QWidget *parent):QWidget(parent)
+{
+	obj = nullptr;
 }
 
 void ObjectWidget::setScene(GameA *pscene)
@@ -20,11 +26,28 @@ void ObjectWidget::setPosition(SI::DB x, SI::DB y)
 	obj->setPosition(x, y);
 }
 
+Point2lf ObjectWidget::getPosition()
+{
+	return obj->P;
+}
+
+bool ObjectWidget::validable()
+{
+	return obj->getProperty("valid") == "true";
+}
+
+void ObjectWidget::update()
+{
+	obj->update();
+}
+
 void ObjectWidget::paintEvent(QPaintEvent *event)
 {
 //	qDebug() << "objectwidget paintEvent start";
+
 	DB x = obj->P.x;
 	DB y = obj->P.y;
+	qDebug() << "x = " << x << "y = " << y;
 	setGeometry(x, y, W, H);
 	QPainter p(this);
 	p.setRenderHint(QPainter::Antialiasing, true);

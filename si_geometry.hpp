@@ -226,6 +226,13 @@ T dist(const Vector2<T>& v1, const Vector2<T>& v2)
 	return std::sqrt(dx * dx + dy * dy);
 }
 
+template<typename T>
+bool judgeOverlap(const Vector2<T>& pos1, const Vector2<T>& pos2)
+{
+	if (pos1.x - pos2.x > 5) return false;
+	if (pos1.y - pos2.y > 5) return false;
+	return true;
+}
 
 
 }

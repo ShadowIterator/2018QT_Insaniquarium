@@ -15,6 +15,7 @@
 
 #define DEBUG
 
+class ObjectWidget;
 class GameA;
 namespace SI
 {

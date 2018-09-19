@@ -38,6 +38,7 @@ GameA::GameA(QWidget *parent) :
     ui->gameView->installEventFilter(this);
 
 	connect(this, SIGNAL(_increaseMoney(int, ObjectWidget*, const SI_String&)), this, SLOT(increaseMoney(int, ObjectWidget*, const SI_String&)));
+	connect(this, SIGNAL(_product(SI_String,int,int,SI_Object*,SI_String)), this, SLOT(product(SI_String,int,int,SI_Object*,SI_String)));
 }
 
 //防止内存泄漏
@@ -76,28 +77,35 @@ void GameA::on_fish1_clicked()
         ui->money->setText(s);
 
         //加入新古比鱼
-        Gubbi* gubbi = new Gubbi;
-        fishWidget* newfish = new fishWidget(ui->gameView, gubbi);
-        newfish->show();
-        fishs.push_back(newfish);
+//        Gubbi* gubbi = new Gubbi;
+//        fishWidget* newfish = new fishWidget(ui->gameView, gubbi);
+//        newfish->show();
+//        fishs.push_back(newfish);
+		emit _product("gubbi", 30, 30, nullptr, SI::noinfo);
     }
 }
 
 void GameA::updateState()
 {
+	for(auto item: objs)
+	{
+		item->update();
+	}
+	update();
+
     for (auto item: fishs)
     {
         item->updatefish();
         item->update();
         if(item->getType() == GUBBI)
         {
-            for (auto i = foods.begin(); i != foods.end(); )
+			for (auto i = objs.begin(); i != objs.end(); )
             {
 				ObjectWidget* food = *i;
                 if (Utils::judgeOverlap(QVector2D((*item).pos()), QVector2D((*food).pos())))
                 {
                     item->growing();
-                    i = foods.erase(i);
+					i = objs.erase(i);
                     food->deleteLater();
                 }
                 else
@@ -166,6 +174,25 @@ void GameA::increaseMoney(int amt, ObjectWidget* src, const SI::SI_String &info)
 	qDebug() << "increaseMoney done";
 }
 
+void GameA::product(const SI::SI_String &productName, int x, int y, SI::SI_Object *src, const SI::SI_String &info)
+{
+//	SI_String productFilePath = ":/image/settings/" + productName;
+	ObjectWidget* pobj = nullptr;
+	if(productName == "food")
+	{
+		pobj = new FoodWidget(ui->gameView);
+	}
+	if(productName == "gubbi")
+	{
+		pobj = new fishWidget(ui->gameView)
+	}
+
+	pobj->setPosition(x, y);
+	pobj->setScene(this);
+	objs.push_back(pobj);
+	pobj->show();
+}
+
 bool GameA::eventFilter(QObject *watched, QEvent *event)
 {
     if (event->type()==QEvent::MouseButtonPress)
@@ -177,7 +204,7 @@ bool GameA::eventFilter(QObject *watched, QEvent *event)
 			ObjectWidget* food = new FoodWidget(ui->gameView);
 			food->setPosition(mouseEvent->x(), mouseEvent->y());
 			food->setScene(this);
-            foods.push_back(food);
+			objs.push_back(food);
 			food->show();
             money -= 20;
             ui->money->setText(QString::number(money));
