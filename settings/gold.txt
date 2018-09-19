@@ -1,0 +1,7 @@
+{
+type gold
+img_url :/image/resource/gold.png
+valid true
+width 15
+height 15
+}

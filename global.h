@@ -15,6 +15,7 @@
 
 #define DEBUG
 
+class GameA;
 namespace SI
 {
 	using std::string;
@@ -27,7 +28,6 @@ namespace SI
 
 	class SI_Object;
 	class Fish;
-	class GameA;
 	//class CardSet;
 	//class Card;
 	//class Weather;
@@ -36,6 +36,7 @@ namespace SI
 	//class Game;
 
 	//typedef CardSet Row;
+	typedef double DB;
 	typedef QString SI_String;
 	typedef QMap<SI_String, SI_String> QMSS;
 	typedef QMap<SI_String, SI_String>::iterator QMSSI;

@@ -9,8 +9,12 @@
 #include <QDebug>
 #include "QVBoxLayout"
 #include "goldwidget.h"
-//#include "foodwidget.h"
-#include "objectwidget.h"
+#include "foodwidget.h"
+//#include "objectwidget.h"
+
+using SI::SI_Object;
+using SI::SI_String;
+
 
 namespace Ui {
 class GameA;
@@ -40,6 +44,10 @@ private slots:
 
     void on_pushButton_clicked();
 
+signals:
+	void _increaseMoney(int, ObjectWidget*, const SI_String&);
+private slots:
+	void increaseMoney(int, ObjectWidget*, const SI_String&);
 private:
     Ui::GameA *ui;
     QVBoxLayout *layout;

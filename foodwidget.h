@@ -2,26 +2,23 @@
 #define FOODWIDGET_H
 
 #include <QWidget>
+#include "global.h"
+#include "objectwidget.h"
 
-class FoodWidget : public QWidget
+
+class FoodWidget : public ObjectWidget
 {
     Q_OBJECT
-protected:
-    QString _imgurl;
-    QImage _pic;
-
 public:
     explicit FoodWidget
-    (QWidget *parent = nullptr,
-     QString url = QString(":/image/resource/food.png")
-    );
+	(QWidget *parent = nullptr);
 
 signals:
 
 public slots:
 
 protected:
-    void paintEvent(QPaintEvent* event);
+
 };
 
 #endif // FOODWIDGET_H

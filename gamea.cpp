@@ -5,11 +5,13 @@
 #include <QMouseEvent>
 #include "utils.h"
 #include "si_geometry.hpp"
+#include "objectwidget.h"
 
 GameA::GameA(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GameA)
 {
+	qDebug() << "GameA this " << this ;
     ui->setupUi(this);
     this->setWindowTitle("游戏");
     this->setWindowModality(Qt::ApplicationModal); //阻塞除当前窗体之外的所有的窗体
@@ -31,9 +33,11 @@ GameA::GameA(QWidget *parent) :
     //gold
     QTimer *timer2 = new QTimer(this);
     connect(timer2,SIGNAL(timeout()),this,SLOT(addgold()));
-    timer2->start(10000);
+	timer2->start(1000);
 
     ui->gameView->installEventFilter(this);
+
+	connect(this, SIGNAL(_increaseMoney(int, ObjectWidget*, const SI_String&)), this, SLOT(increaseMoney(int, ObjectWidget*, const SI_String&)));
 }
 
 //防止内存泄漏
@@ -49,6 +53,7 @@ GameA::~GameA()
         delete item;
     }
 }
+
 
 //菜单
 void GameA::on_menu_clicked()
@@ -131,10 +136,12 @@ void GameA::addgold()
     {
         QRect rect = item->geometry();
         GoldWidget* gold = new GoldWidget(ui->gameView);
+		gold->setPosition(rect.x() + 25, rect.y() + 34);
+		gold->setScene(this);
         gold -> show();
         connect(gold, SIGNAL(gold_clicked(GoldWidget*)), this, SLOT(collectGold(GoldWidget*)));
         golds.push_back(gold);
-        gold->setGeometry(rect.x() + 25, rect.y() + 34, 15, 15);
+//        gold->setGeometry(, 15, 15);
     }
 }
 
@@ -149,24 +156,31 @@ void GameA::collectGold(GoldWidget* gptr)
     ui->money->setText(QString::number(money));
 }
 
+void GameA::increaseMoney(int amt, ObjectWidget* src, const SI::SI_String &info)
+{
+	update();
+	qDebug() << "increaseMoney start";
+	money += amt;
+	money = SI::Max(money, 0);
+	ui->money->setText(QString::number(money));
+	qDebug() << "increaseMoney done";
+}
+
 bool GameA::eventFilter(QObject *watched, QEvent *event)
 {
-//	SI::Point2lf P1(1, 1);
-//	SI::Vector2lf P2(-1, 2);
-//	SI::Point2lf P = P1 + P2;
-//	qDebug() << P.x << ' ' << P.y;
     if (event->type()==QEvent::MouseButtonPress)
     {
         QMouseEvent *mouseEvent=static_cast<QMouseEvent*>(event);
         if (mouseEvent->buttons()&Qt::LeftButton && money >= 20)
         {
             qDebug() << "food";
-			ObjectWidget* food = new ObjectWidget(":/image/settings/food.txt", ui->gameView);
-            food -> show();
+			ObjectWidget* food = new FoodWidget(ui->gameView);
+			food->setPosition(mouseEvent->x(), mouseEvent->y());
+			food->setScene(this);
             foods.push_back(food);
+			food->show();
             money -= 20;
             ui->money->setText(QString::number(money));
-            food->setGeometry(mouseEvent->x(), mouseEvent->y(), 24, 24);
 
             for (auto item: fishs)
             {

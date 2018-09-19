@@ -3,20 +3,20 @@
 
 #include <QWidget>
 #include <QImage>
+#include "objectwidget.h"
+#include "global.h"
 
-class GoldWidget : public QWidget
+
+class GoldWidget : public ObjectWidget
 {
     Q_OBJECT
 protected:
-    QString _imgurl;
-    QImage _pic;
 
 public:
     int _amount;
     explicit GoldWidget
-    (QWidget *parent = nullptr,
-     QString url = QString(":/image/resource/gold.png"),
-     int amount = 100);
+	(QWidget *parent = nullptr, int amount = 100);
+//     int amount = 100);
 
 signals:
     void gold_clicked(GoldWidget* gptr);
@@ -24,7 +24,7 @@ signals:
 public slots:
 
 protected:
-    void paintEvent(QPaintEvent* event);
+//    void paintEvent(QPaintEvent* event);
     void mousePressEvent(QMouseEvent* ev);
 };
 

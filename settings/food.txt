@@ -2,4 +2,7 @@
 type food
 cost 20
 img_url :/image/resource/food.png
+valid true
+width 24
+height 24
 }

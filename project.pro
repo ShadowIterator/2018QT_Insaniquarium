@@ -36,7 +36,9 @@ SOURCES += main.cpp\
     abstract_fish.cpp \
     global.cpp \
     si_object.cpp \
-    objectwidget.cpp
+    objectwidget.cpp \
+    carnivorewidget.cpp \
+    gubbiwidget.cpp
 
 HEADERS  += mainwindow.h \
     gamea.h \
@@ -49,7 +51,9 @@ HEADERS  += mainwindow.h \
     si_object.h \
     abstract_fish.h \
     si_geometry.hpp \
-    objectwidget.h
+    objectwidget.h \
+    carnivorewidget.h \
+    gubbiwidget.h
 
 FORMS    += mainwindow.ui \
     gamea.ui

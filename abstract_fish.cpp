@@ -25,6 +25,18 @@ namespace SI
 		pscene = tpscene;
 	}
 
+	void Fish::setPosition(DB x, DB y)
+	{
+		P.x = x;
+		P.y = y;
+	}
+
+	void Fish::setVelocity(DB x, DB y)
+	{
+		V.x = x;
+		V.y = y;
+	}
+
 	void Fish::make_connection()
 	{
 

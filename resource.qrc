@@ -134,5 +134,6 @@
         <file>resource/deadgubbi.png</file>
         <file>resource/hungrygubbi.png</file>
         <file>settings/food.txt</file>
+        <file>settings/gold.txt</file>
     </qresource>
 </RCC>

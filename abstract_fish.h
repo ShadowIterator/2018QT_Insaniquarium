@@ -12,6 +12,7 @@ namespace SI
 	{
 	public:
 		Point2lf P;
+		Vector2lf V;
 		GameA* pscene;
 	public:
 		Fish(QObject* parent = 0);
@@ -20,6 +21,8 @@ namespace SI
 
 		void set_scene(GameA* tpscene);
 		void make_connection();
+		void setPosition(DB x, DB y);
+		void setVelocity(DB x, DB y);
 	signals:
 	public slots:
 		void update(const SI_String &info);

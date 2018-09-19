@@ -1,0 +1,4 @@
+#ifndef GUBBIWIDGET_H
+#define GUBBIWIDGET_H
+
+#endif // GUBBIWIDGET_H
