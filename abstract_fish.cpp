@@ -181,8 +181,9 @@ namespace SI
 		{
 			if(rand() < getProperty("grow_probability").toInt())
 			{
-				emit pscene->_product(getProperty("next_stage"), P.x, P.y, this, noinfo);
 				die("grow");
+				emit pscene->_product(getProperty("next_stage"), P.x, P.y, this, noinfo);
+
 			}
 			else
 			{

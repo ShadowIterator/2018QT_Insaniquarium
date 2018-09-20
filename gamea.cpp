@@ -50,7 +50,7 @@ GameA::GameA(QWidget *parent) :
 //	emit _product("silver", 100, 100, nullptr, SI::noinfo);
 //	emit _product("gold", 300, 300, nullptr, SI::noinfo);
 //	emit _product("gubbi", 300, 300, nullptr, SI::noinfo);
-	emit _product("middlegubbi", 300, 300, nullptr, SI::noinfo);
+	emit _product("middlegubbi", 400, 300, nullptr, SI::noinfo);
 //	emit _product("supergubbi", 300, 300, nullptr, SI::noinfo);
 //	emit _product("carnivore", 300, 300, nullptr, SI::noinfo);
 //	emit _product("supercarnivore", 300, 300, nullptr, SI::noinfo);
@@ -117,7 +117,11 @@ void GameA::updateState()
 	{
 		objs.push_back(item);
 	}
-
+	for(auto item: apds)
+	{
+		objs.push_back(item);
+	}
+	apds.clear();
 //    for (auto item: fishs)
 //    {
 //        item->updatefish();
@@ -256,8 +260,8 @@ void GameA::product(const SI::SI_String &productName, int x, int y, SI::SI_Objec
 
 	pobj->setPosition(x, y);
 	pobj->setScene(this);
-	objs.push_back(pobj);
 	pobj->show();
+	apds.push_back(pobj);
 }
 
 bool GameA::eventFilter(QObject *watched, QEvent *event)

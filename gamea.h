@@ -34,6 +34,7 @@ public:
 //	QVector<ObjectWidget*> foods;
 	QVector<ObjectWidget*> objs;
 	QVector<ObjectWidget*> tmps;
+	QVector<ObjectWidget*> apds;
 
 private slots:
     void on_menu_clicked();
