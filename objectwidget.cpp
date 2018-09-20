@@ -12,6 +12,11 @@ ObjectWidget::ObjectWidget(const SI_String& fileName, QWidget *parent) : QWidget
 	H = obj->getProperty("height").toInt();
 }
 
+ObjectWidget::~ObjectWidget()
+{
+	delete obj;
+}
+
 ObjectWidget::ObjectWidget(QWidget *parent):QWidget(parent)
 {
 	obj = nullptr;

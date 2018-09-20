@@ -5,7 +5,7 @@
 #include <QVector>
 #include "QString"
 #include "fishwidget.h"
-#include "fish.h"
+//#include "fish.h"
 #include <QDebug>
 #include "QVBoxLayout"
 #include "goldwidget.h"
@@ -29,8 +29,8 @@ public:
     ~GameA();
 
     long int money;
-    QVector<fishWidget*> fishs;
-    QVector<GoldWidget*> golds;
+//    QVector<fishWidget*> fishs;
+//    QVector<GoldWidget*> golds;
 //	QVector<ObjectWidget*> foods;
 	QVector<ObjectWidget*> objs;
 	QVector<ObjectWidget*> tmps;

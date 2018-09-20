@@ -28,6 +28,7 @@ public:
 
 	virtual void setPosition(DB x, DB y);
 	virtual void setScene(GameA* pscene);
+	virtual ~ObjectWidget();
 	bool validable();
 	Point2lf getPosition();
 signals:

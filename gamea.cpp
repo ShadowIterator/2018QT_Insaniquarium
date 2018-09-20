@@ -3,7 +3,7 @@
 #include "QHBoxLayout"
 #include <QEvent>
 #include <QMouseEvent>
-#include "utils.h"
+//#include "utils.h"
 #include "si_geometry.hpp"
 #include "objectwidget.h"
 #include "gubbiwidget.h"
@@ -58,14 +58,18 @@ GameA::GameA(QWidget *parent) :
 GameA::~GameA()
 {
     delete ui;
-    for (auto item: fishs)
+	for (auto item: objs)
     {
         delete item;
     }
-    for (auto item: golds)
+	for (auto item: tmps)
     {
         delete item;
     }
+	for (auto item: apds)
+	{
+		delete item;
+	}
 }
 
 
@@ -90,10 +94,6 @@ void GameA::on_fish1_clicked()
         ui->money->setText(s);
 
         //加入新古比鱼
-//		Gubbi* gubbi = new Gubbi;
-//		fishWidget* newfish = new fishWidget(ui->gameView, gubbi);
-//		newfish->show();
-//		fishs.push_back(newfish);
 		emit _product("gubbi", 30, 30, nullptr, SI::noinfo);
     }
 }
@@ -106,6 +106,8 @@ void GameA::updateState()
 		item->update();
 		if(item->obj->getProperty("valid") == "true")
 			tmps.push_back(item);
+		else
+			item->deleteLater();
 	}
 	update();
 	objs.clear();
@@ -123,22 +125,22 @@ void GameA::updateState()
 
 void GameA::addgold()
 {
-	qDebug() << fishs.length();
-    for(auto item: fishs)
-    {
-        QRect rect = item->geometry();
-//		ObjectWidget* gold = new GoldWidget(ui->gameView);
-//		gold->setPosition(rect.x() + 25, rect.y() + 34);
-//		gold->setScene(this);
-//		gold -> show();
+//	qDebug() << fishs.length();
+//    for(auto item: fishs)
+//    {
+//        QRect rect = item->geometry();
+////		ObjectWidget* gold = new GoldWidget(ui->gameView);
+////		gold->setPosition(rect.x() + 25, rect.y() + 34);
+////		gold->setScene(this);
+////		gold -> show();
 
-		emit _product("gold", rect.x() + 25, rect.y() + 34, nullptr, SI::noinfo);
+//		emit _product("gold", rect.x() + 25, rect.y() + 34, nullptr, SI::noinfo);
 
 
-//        connect(gold, SIGNAL(gold_clicked(GoldWidget*)), this, SLOT(collectGold(GoldWidget*)));
-//        golds.push_back(gold);
-//        gold->setGeometry(, 15, 15);
-    }
+////        connect(gold, SIGNAL(gold_clicked(GoldWidget*)), this, SLOT(collectGold(GoldWidget*)));
+////        golds.push_back(gold);
+////        gold->setGeometry(, 15, 15);
+//    }
 }
 
 void GameA::collectGold(GoldWidget* gptr)
@@ -168,6 +170,8 @@ void GameA::product(const SI::SI_String &productName, int x, int y, SI::SI_Objec
 //	SI_String productFilePath = ":/image/settings/" + productName;
 	qDebug() << productName << ": " << x << " " << y;
 	ObjectWidget* pobj = nullptr;
+	if(productName == "NoResult")
+		return ;
 	if(productName == "food")
 	{
 		pobj = new FoodWidget(ui->gameView);
@@ -192,44 +196,46 @@ void GameA::product(const SI::SI_String &productName, int x, int y, SI::SI_Objec
 	{
 		pobj = new SuperCarnivoreWidget(ui->gameView);
 	}
-	else if(productName == "middlegubbi")
-	{
-		pobj = new ObjectWidget(":/image/settings/middlegubbi.txt", ui->gameView);
-	}
-	else if(productName == "supergubbi")
-	{
-		pobj = new ObjectWidget(":/image/settings/supergubbi.txt", ui->gameView);
-	}
-	else if(productName == "kinggubbi")
-	{
-		pobj = new ObjectWidget(":/image/settings/kinggubbi.txt", ui->gameView);
-	}
+//	else if(productName == "middlegubbi")
+//	{
+//		pobj = new ObjectWidget(":/image/settings/middlegubbi.txt", ui->gameView);
+//	}
+//	else if(productName == "supergubbi")
+//	{
+//		pobj = new ObjectWidget(":/image/settings/supergubbi.txt", ui->gameView);
+//	}
+//	else if(productName == "kinggubbi")
+//	{
+//		pobj = new ObjectWidget(":/image/settings/kinggubbi.txt", ui->gameView);
+//	}
 	else if(productName == "silver")
 	{
 		pobj = new GoldWidget(":/image/settings/silver.txt", ui->gameView);
 	}
-	else if(productName == "mothergubbi")
-	{
-		pobj = new ObjectWidget(":/image/settings/mothergubbi.txt", ui->gameView);
-	}
-	else if(productName == "supermothergubbi")
-	{
-		pobj = new ObjectWidget(":/image/settings/supermothergubbi.txt", ui->gameView);
-	}
-	else if(productName == "nail")
-	{
-		pobj = new  ObjectWidget(":/image/settings/nail.txt", ui->gameView);
-	}
-	else if(productName == "eater")
-	{
-		pobj = new ObjectWidget(":/image/settings/eater.txt", ui->gameView);
-	}
+//	else if(productName == "mothergubbi")
+//	{
+//		pobj = new ObjectWidget(":/image/settings/mothergubbi.txt", ui->gameView);
+//	}
+//	else if(productName == "supermothergubbi")
+//	{
+//		pobj = new ObjectWidget(":/image/settings/supermothergubbi.txt", ui->gameView);
+//	}
+//	else if(productName == "nail")
+//	{
+//		pobj = new  ObjectWidget(":/image/settings/nail.txt", ui->gameView);
+//	}
+//	else if(productName == "eater")
+//	{
+//		pobj = new ObjectWidget(":/image/settings/eater.txt", ui->gameView);
+//	}
 	else if(productName == "monster")
 	{
 		pobj = new MonsterWidget(ui->gameView);
 	}
-	if(!pobj)
-		return ;
+	else
+		pobj = new ObjectWidget(":/image/settings/" + productName + ".txt", ui->gameView);
+//	if(!pobj)
+//		return ;
 
 	pobj->setPosition(x, y);
 	pobj->setScene(this);
@@ -245,34 +251,35 @@ bool GameA::eventFilter(QObject *watched, QEvent *event)
         if (mouseEvent->buttons()&Qt::LeftButton && money >= 20)
         {
             qDebug() << "food";
-			ObjectWidget* food = new FoodWidget(ui->gameView);
-			food->setPosition(mouseEvent->x(), mouseEvent->y());
-			food->setScene(this);
-			objs.push_back(food);
-			food->show();
-            money -= 20;
+//			ObjectWidget* food = new FoodWidget(ui->gameView);
+//			food->setPosition(mouseEvent->x(), mouseEvent->y());
+//			food->setScene(this);
+//			objs.push_back(food);
+//			food->show();
+			emit _product("food", mouseEvent->x(), mouseEvent->y(), nullptr, SI::noinfo);
+			money -= 20;
             ui->money->setText(QString::number(money));
 
-            for (auto item: fishs)
-            {
-                double minDist = (double)INT_MAX;
-                fishWidget* minDistFish = nullptr;
-                if (!item->isHunting && item->getType() == GUBBI)
-                {
-                    QVector2D currDiffVec = QVector2D(item->pos() - food->pos());
-                    double currDist = currDiffVec.length();
-                    if (currDist < minDist)
-                    {
-                        minDistFish = item;
-                        minDist = currDist;
-                    }
-                    if (minDistFish != nullptr)
-                    {
-                        minDistFish->hunting(QVector2D(mouseEvent->x(), mouseEvent->y()));
-                    }
-                    break;
-                }
-            }
+//            for (auto item: fishs)
+//            {
+//                double minDist = (double)INT_MAX;
+//                fishWidget* minDistFish = nullptr;
+//                if (!item->isHunting && item->getType() == GUBBI)
+//                {
+//                    QVector2D currDiffVec = QVector2D(item->pos() - food->pos());
+//                    double currDist = currDiffVec.length();
+//                    if (currDist < minDist)
+//                    {
+//                        minDistFish = item;
+//                        minDist = currDist;
+//                    }
+//                    if (minDistFish != nullptr)
+//                    {
+//                        minDistFish->hunting(QVector2D(mouseEvent->x(), mouseEvent->y()));
+//                    }
+//                    break;
+//                }
+//            }
             return true;
         }
     }
@@ -281,13 +288,13 @@ bool GameA::eventFilter(QObject *watched, QEvent *event)
 
 void GameA::fishMove()
 {
-    for(auto item: fishs)
-    {
-        if (!item->isHunting)
-        {
-            item->wandering();
-        }
-    }
+//    for(auto item: fishs)
+//    {
+//        if (!item->isHunting)
+//        {
+//            item->wandering();
+//        }
+//    }
 }
 
 //carnivore
@@ -305,9 +312,10 @@ void GameA::on_pushButton_clicked()
         ui->money->setText(s);
 
         //加入新食肉鱼
-        Carnivore* carnivore = new Carnivore;
-        fishWidget* newfish = new fishWidget(ui->gameView, carnivore);
-        newfish->show();
-        fishs.push_back(newfish);
+		emit _product("carnivore", 30, 30, nullptr, SI::noinfo);
+//        Carnivore* carnivore = new Carnivore;
+//        fishWidget* newfish = new fishWidget(ui->gameView, carnivore);
+//        newfish->show();
+//        fishs.push_back(newfish);
     }
 }
