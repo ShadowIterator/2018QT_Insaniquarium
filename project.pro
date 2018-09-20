@@ -39,7 +39,9 @@ SOURCES += main.cpp\
     objectwidget.cpp \
     carnivorewidget.cpp \
     food.cpp \
-    gubbiwidget.cpp
+    gubbiwidget.cpp \
+    diamondwidget.cpp \
+    supercarnivore.cpp
 
 HEADERS  += mainwindow.h \
     gamea.h \
@@ -56,7 +58,9 @@ HEADERS  += mainwindow.h \
     carnivorewidget.h \
     gubbiwidget.h \
     food.h \
-    gubbiwidget.h
+    gubbiwidget.h \
+    diamondwidget.h \
+    supercarnivore.h
 
 FORMS    += mainwindow.ui \
     gamea.ui

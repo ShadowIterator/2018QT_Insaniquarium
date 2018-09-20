@@ -136,5 +136,16 @@
         <file>settings/food.txt</file>
         <file>settings/gold.txt</file>
         <file>settings/gubbi.txt</file>
+        <file>settings/diamond.txt</file>
+        <file>settings/carnivore.txt</file>
+        <file>settings/supercarnivore.txt</file>
+        <file>settings/kinggubbi.txt</file>
+        <file>settings/middlegubbi.txt</file>
+        <file>settings/silver.txt</file>
+        <file>settings/supergubbi.txt</file>
+        <file>resource/kinggubbi.PNG</file>
+        <file>resource/middlegubbi.PNG</file>
+        <file>resource/supercarnivore.PNG</file>
+        <file>resource/supergubbi.PNG</file>
     </qresource>
 </RCC>

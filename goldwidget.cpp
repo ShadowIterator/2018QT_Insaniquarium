@@ -11,6 +11,12 @@ GoldWidget::GoldWidget
 
 }
 
+GoldWidget::GoldWidget
+(const SI_String& fileName, QWidget *parent): ObjectWidget(fileName, parent)
+{
+
+}
+
 //void GoldWidget::paintEvent(QPaintEvent *event)
 //{
 ////    QPainter p(this);

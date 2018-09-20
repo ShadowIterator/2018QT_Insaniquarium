@@ -41,7 +41,7 @@ namespace SI
 
 	void Fish::setVelocity(DB x, DB y)
 	{
-		qDebug() << "set Velocity";
+//		qDebug() << "set Velocity";
 		V.x = x;
 		V.y = y;
 	}
@@ -84,12 +84,12 @@ namespace SI
 			if(hungry_index < getProperty("hunting_st").toInt())
 			{
 				hunting(noinfo);
-				setProperty("img_url", getProperty("hungry_img_url"));
+//				setProperty("img_url", getProperty("hungry_img_url"));
 			}
 			else
 			{
 				hang(noinfo);
-				setProperty("img_url", getProperty("normal_img_url"));
+//				setProperty("img_url", getProperty("normal_img_url"));
 			}
 			grow(noinfo);
 		}
@@ -139,10 +139,10 @@ namespace SI
 		int hungry_increase = tar->getProperty("hungry_increase").toInt();
 		int hungry_index = getProperty("hungry_index").toInt();
 		hungry_index += hungry_increase;
-		int enegy = getProperty("energy").toInt();
+		int enegy = getProperty("grow_energy").toInt();
 		enegy += hungry_increase;
 		setProperty("hungry_index", SI_String::number(hungry_index));
-		setProperty("energy", SI_String::number(enegy));
+		setProperty("grow_energy", SI_String::number(enegy));
 		tar->die("eaten");
 
 	}
@@ -176,16 +176,26 @@ namespace SI
 		if(sgrowEnergy == "Impossible")
 			return ;
 		int igrowEnergy = sgrowEnergy.toInt();
+		qDebug() << "grow_energy: " << igrowEnergy;
 		if(getProperty("grow_st").toInt() < igrowEnergy)
 		{
-			emit pscene->_product(getProperty("next_stage"), P.x, P.y, this, noinfo);
-			die("grow");
+			if(rand() < getProperty("grow_probability").toInt())
+			{
+				emit pscene->_product(getProperty("next_stage"), P.x, P.y, this, noinfo);
+				die("grow");
+			}
+			else
+			{
+				setProperty("grow_energy", "0");
+			}
 		}
 	}
 
 	void Fish::product(const SI_String &info)
 	{
-		qDebug() << prodCounter;
+//		qDebug() << prodCounter;
+		if(getProperty("product") == "NoResult")
+			return ;
 		++prodCounter;
 		if(prodCounter >= getProperty("product_cycle").toInt())
 		{

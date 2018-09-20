@@ -7,6 +7,9 @@
 #include "si_geometry.hpp"
 #include "objectwidget.h"
 #include "gubbiwidget.h"
+#include "diamondwidget.h"
+#include "carnivorewidget.h"
+#include "supercarnivore.h"
 
 GameA::GameA(QWidget *parent) :
     QWidget(parent),
@@ -43,7 +46,14 @@ GameA::GameA(QWidget *parent) :
 
 //	emit _product("gold", 400, 400, nullptr, SI::noinfo);
 //	emit _product("gold", 200, 100, nullptr, SI::noinfo);
-	emit _product("gubbi", 300, 300, nullptr, SI::noinfo);
+//	emit _product("gubbi", 300, 300, nullptr, SI::noinfo);
+//	emit _product("silver", 100, 100, nullptr, SI::noinfo);
+//	emit _product("gold", 300, 300, nullptr, SI::noinfo);
+//	emit _product("gubbi", 300, 300, nullptr, SI::noinfo);
+	emit _product("middlegubbi", 300, 300, nullptr, SI::noinfo);
+//	emit _product("supergubbi", 300, 300, nullptr, SI::noinfo);
+//	emit _product("carnivore", 300, 300, nullptr, SI::noinfo);
+//	emit _product("supercarnivore", 300, 300, nullptr, SI::noinfo);
 }
 
 //防止内存泄漏
@@ -204,13 +214,41 @@ void GameA::product(const SI::SI_String &productName, int x, int y, SI::SI_Objec
 	{
 		pobj = new FoodWidget(ui->gameView);
 	}
-	if(productName == "gubbi")
+	else if(productName == "gubbi")
 	{
 		pobj = new GubbiWidget(ui->gameView);
 	}
-	if(productName == "gold")
+	else if(productName == "gold")
 	{
 		pobj = new GoldWidget(ui->gameView);
+	}
+	else if(productName == "diamond")
+	{
+		pobj = new DiamondWidget(ui->gameView);
+	}
+	else if(productName == "carnivore")
+	{
+		pobj = new CarnivoreWidget(ui->gameView);
+	}
+	else if(productName == "supercarnivore")
+	{
+		pobj = new SuperCarnivoreWidget(ui->gameView);
+	}
+	else if(productName == "middlegubbi")
+	{
+		pobj = new ObjectWidget(":/image/settings/middlegubbi.txt", ui->gameView);
+	}
+	else if(productName == "supergubbi")
+	{
+		pobj = new ObjectWidget(":/image/settings/supergubbi.txt", ui->gameView);
+	}
+	else if(productName == "kinggubbi")
+	{
+		pobj = new ObjectWidget(":/image/settings/kinggubbi.txt", ui->gameView);
+	}
+	else if(productName == "silver")
+	{
+		pobj = new GoldWidget(":/image/settings/silver.txt", ui->gameView);
 	}
 
 	if(!pobj)

@@ -1,16 +1,16 @@
-#ifndef CARNIVOREWIDGET_H
-#define CARNIVOREWIDGET_H
+#ifndef SUPERCARNIVORE_H
+#define SUPERCARNIVORE_H
 
 #include <QWidget>
 #include "global.h"
 #include "objectwidget.h"
 
 
-class CarnivoreWidget : public ObjectWidget
+class SuperCarnivoreWidget : public ObjectWidget
 {
 	Q_OBJECT
 public:
-	explicit CarnivoreWidget
+	explicit SuperCarnivoreWidget
 	(QWidget *parent = nullptr);
 
 signals:
@@ -21,4 +21,4 @@ protected:
 
 };
 
-#endif // CARNIVOREWIDGET_H
+#endif // SUPERCARNIVORE_H

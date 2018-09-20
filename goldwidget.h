@@ -16,6 +16,9 @@ public:
     int _amount;
     explicit GoldWidget
 	(QWidget *parent = nullptr, int amount = 100);
+	explicit GoldWidget
+	(const SI_String& fileName,
+	QWidget *parent = nullptr);
 //     int amount = 100);
 
 signals:
