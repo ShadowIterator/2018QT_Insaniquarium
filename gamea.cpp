@@ -51,9 +51,14 @@ GameA::GameA(QWidget *parent) :
 //	emit _product("gold", 300, 300, nullptr, SI::noinfo);
 //	emit _product("gubbi", 300, 300, nullptr, SI::noinfo);
 	emit _product("middlegubbi", 400, 300, nullptr, SI::noinfo);
+	emit _product("gubbi", 300, 300, nullptr, SI::noinfo);
 //	emit _product("supergubbi", 300, 300, nullptr, SI::noinfo);
 //	emit _product("carnivore", 300, 300, nullptr, SI::noinfo);
 //	emit _product("supercarnivore", 300, 300, nullptr, SI::noinfo);
+	emit _product("supergubbi", 400, 400, nullptr, SI::noinfo);
+	emit _product("eater", 500, 500, nullptr, SI::noinfo);
+//	emit _product("supermothergubbi", 300, 300, nullptr, SI::noinfo);
+	emit _product("nail", 300, 400, nullptr, SI::noinfo);
 }
 
 //防止内存泄漏
@@ -253,6 +258,22 @@ void GameA::product(const SI::SI_String &productName, int x, int y, SI::SI_Objec
 	else if(productName == "silver")
 	{
 		pobj = new GoldWidget(":/image/settings/silver.txt", ui->gameView);
+	}
+	else if(productName == "mothergubbi")
+	{
+		pobj = new ObjectWidget(":/image/settings/mothergubbi.txt", ui->gameView);
+	}
+	else if(productName == "supermothergubbi")
+	{
+		pobj = new ObjectWidget(":/image/settings/supermothergubbi.txt", ui->gameView);
+	}
+	else if(productName == "nail")
+	{
+		pobj = new  ObjectWidget(":/image/settings/nail.txt", ui->gameView);
+	}
+	else if(productName == "eater")
+	{
+		pobj = new ObjectWidget(":/image/settings/eater.txt", ui->gameView);
 	}
 
 	if(!pobj)

@@ -151,10 +151,10 @@ namespace SI
 	{
 		if(judgeOverlap(tarP, P))
 		{
-			int W = WINDOW_W;//pscene->Width();
-			int H = WINDOW_H;//pscene->Height();
-			int tx = rand() % W;
-			int ty = rand() % H;
+			int W = WINDOW_W - 20;//pscene->Width();
+			int H = WINDOW_H - 20;//pscene->Height();
+			int tx = rand() % W + 10;
+			int ty = rand() % H + 10;
 			tarP = 	Point2lf(tx, ty);
 		}
 		V = tarP - P;

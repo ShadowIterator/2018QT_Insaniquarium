@@ -147,5 +147,12 @@
         <file>resource/middlegubbi.PNG</file>
         <file>resource/supercarnivore.PNG</file>
         <file>resource/supergubbi.PNG</file>
+        <file>settings/mothergubbi.txt</file>
+        <file>settings/supermothergubbi.txt</file>
+        <file>settings/nail.txt</file>
+        <file>resource/eater.PNG</file>
+        <file>resource/monster.png</file>
+        <file>settings/eater.txt</file>
+        <file>settings/monster.txt</file>
     </qresource>
 </RCC>
