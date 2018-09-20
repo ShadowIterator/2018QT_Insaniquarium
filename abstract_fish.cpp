@@ -176,9 +176,13 @@ namespace SI
 		if(sgrowEnergy == "Impossible")
 			return ;
 		int igrowEnergy = sgrowEnergy.toInt();
-		qDebug() << "grow_energy: " << igrowEnergy;
+//		qDebug() << "grow_energy: " << igrowEnergy;
 		if(getProperty("grow_st").toInt() < igrowEnergy)
 		{
+			int pb = rand();
+			qDebug() << "prob: " << pb;
+			int gpb = getProperty("grow_probability").toInt();
+			qDebug() << "gpb: " << gpb;
 			if(rand() < getProperty("grow_probability").toInt())
 			{
 				die("grow");
@@ -211,6 +215,12 @@ namespace SI
 		qDebug() << "die" << info;
 		pwidget->hide();
 		setProperty("valid", "false");
+		SI_String money_increase = getProperty("money_increase");
+
+		if(money_increase != "NoResult")
+		{
+			emit pscene->_increaseMoney(money_increase.toInt(), this, SI::noinfo);
+		}
 	}
 
 }

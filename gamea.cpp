@@ -41,7 +41,7 @@ GameA::GameA(QWidget *parent) :
 
     ui->gameView->installEventFilter(this);
 
-	connect(this, SIGNAL(_increaseMoney(int, ObjectWidget*, const SI_String&)), this, SLOT(increaseMoney(int, ObjectWidget*, const SI_String&)));
+	connect(this, SIGNAL(_increaseMoney(int, SI_Object*, const SI_String&)), this, SLOT(increaseMoney(int, SI_Object*, const SI_String&)));
 	connect(this, SIGNAL(_product(SI_String,int,int,SI_Object*,SI_String)), this, SLOT(product(SI_String,int,int,SI_Object*,SI_String)));
 
 //	emit _product("gold", 400, 400, nullptr, SI::noinfo);
@@ -199,7 +199,7 @@ void GameA::collectGold(GoldWidget* gptr)
 //    ui->money->setText(QString::number(money));
 }
 
-void GameA::increaseMoney(int amt, ObjectWidget* src, const SI::SI_String &info)
+void GameA::increaseMoney(int amt, SI_Object* src, const SI::SI_String &info)
 {
 	update();
 	qDebug() << "increaseMoney start";
