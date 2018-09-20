@@ -84,12 +84,12 @@ namespace SI
 			if(hungry_index < getProperty("hunting_st").toInt())
 			{
 				hunting(noinfo);
-//				setProperty("img_url", getProperty("hungry_img_url"));
+				setProperty("img_url", getProperty("hungry_img_url"));
 			}
 			else
 			{
 				hang(noinfo);
-//				setProperty("img_url", getProperty("normal_img_url"));
+				setProperty("img_url", getProperty("normal_img_url"));
 			}
 			grow(noinfo);
 		}
@@ -221,6 +221,7 @@ namespace SI
 		{
 			emit pscene->_increaseMoney(money_increase.toInt(), this, SI::noinfo);
 		}
+
 	}
 
 }

@@ -9,6 +9,7 @@
 #include "gubbiwidget.h"
 #include "diamondwidget.h"
 #include "carnivorewidget.h"
+#include "monsterwidget.h"
 #include "supercarnivore.h"
 
 GameA::GameA(QWidget *parent) :
@@ -29,16 +30,6 @@ GameA::GameA(QWidget *parent) :
     connect(timer,SIGNAL(timeout()),this,SLOT(updateState()));
 	timer->start(10);
 
-    //fishmove
-//    QTimer *timer3 = new QTimer(this);
-//    connect(timer3,SIGNAL(timeout()),this,SLOT(fishMove()));
-//    timer3->start(500);
-
-    //gold
-//    QTimer *timer2 = new QTimer(this);
-//    connect(timer2,SIGNAL(timeout()),this,SLOT(addgold()));
-//	timer2->start(1000);
-
     ui->gameView->installEventFilter(this);
 
 	connect(this, SIGNAL(_increaseMoney(int, SI_Object*, const SI_String&)), this, SLOT(increaseMoney(int, SI_Object*, const SI_String&)));
@@ -47,18 +38,20 @@ GameA::GameA(QWidget *parent) :
 //	emit _product("gold", 400, 400, nullptr, SI::noinfo);
 //	emit _product("gold", 200, 100, nullptr, SI::noinfo);
 //	emit _product("gubbi", 300, 300, nullptr, SI::noinfo);
-//	emit _product("silver", 100, 100, nullptr, SI::noinfo);
-//	emit _product("gold", 300, 300, nullptr, SI::noinfo);
-//	emit _product("gubbi", 300, 300, nullptr, SI::noinfo);
-	emit _product("middlegubbi", 400, 300, nullptr, SI::noinfo);
+	emit _product("silver", 100, 100, nullptr, SI::noinfo);
+	emit _product("gold", 300, 300, nullptr, SI::noinfo);
+	emit _product("diamond", 400, 300, nullptr, SI::noinfo);
 	emit _product("gubbi", 300, 300, nullptr, SI::noinfo);
+	emit _product("middlegubbi", 400, 300, nullptr, SI::noinfo);
 //	emit _product("supergubbi", 300, 300, nullptr, SI::noinfo);
-//	emit _product("carnivore", 300, 300, nullptr, SI::noinfo);
+//	emit _product("kinggubbi", 300, 300, nullptr, SI::noinfo);
+	emit _product("carnivore", 500, 300, nullptr, SI::noinfo);
 //	emit _product("supercarnivore", 300, 300, nullptr, SI::noinfo);
-	emit _product("supergubbi", 400, 400, nullptr, SI::noinfo);
-	emit _product("eater", 500, 500, nullptr, SI::noinfo);
-//	emit _product("supermothergubbi", 300, 300, nullptr, SI::noinfo);
+//	emit _product("eater", 500, 500, nullptr, SI::noinfo);
+//	emit _product("mothergubbi", 300, 300, nullptr, SI::noinfo);
+	emit _product("supermothergubbi", 300, 300, nullptr, SI::noinfo);
 	emit _product("nail", 300, 400, nullptr, SI::noinfo);
+//	emit _product("monster", 500, 500, nullptr, SI::noinfo);
 }
 
 //防止内存泄漏
@@ -108,10 +101,8 @@ void GameA::on_fish1_clicked()
 void GameA::updateState()
 {
 	tmps.clear();
-//	qDebug() << "upd state " << objs.length();
 	for(auto item: objs)
 	{
-//		qDebug() << "update: "<< item->obj->getProperty("type");
 		item->update();
 		if(item->obj->getProperty("valid") == "true")
 			tmps.push_back(item);
@@ -127,49 +118,7 @@ void GameA::updateState()
 		objs.push_back(item);
 	}
 	apds.clear();
-//    for (auto item: fishs)
-//    {
-//        item->updatefish();
-//        item->update();
-//        if(item->getType() == GUBBI)
-//        {
-//			for (auto i = objs.begin(); i != objs.end(); )
-//            {
-//				ObjectWidget* food = *i;
-//                if (Utils::judgeOverlap(QVector2D((*item).pos()), QVector2D((*food).pos())))
-//                {
-//                    item->growing();
-//					i = objs.erase(i);
-//                    food->deleteLater();
-//                }
-//                else
-//                {
-//                    i++;
-//                }
-//            }
-//        }
 
-//        if(item->getType() == CARNIVORE)
-//        {
-//            for (auto j = fishs.begin(); j != fishs.end();)
-//            {
-//                fishWidget* fish = *j;
-//                if(fish->getType() == GUBBI)
-//                {
-//                    if (Utils::judgeOverlap(QVector2D((*item).pos()), QVector2D((*fish).pos())))
-//                    {
-//                        item->growing();
-//                        j = fishs.erase(j);
-//                        fish->deleteLater();
-//                    }
-//                    else
-//                    {
-//                        j++;
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
 
 void GameA::addgold()
@@ -275,7 +224,10 @@ void GameA::product(const SI::SI_String &productName, int x, int y, SI::SI_Objec
 	{
 		pobj = new ObjectWidget(":/image/settings/eater.txt", ui->gameView);
 	}
-
+	else if(productName == "monster")
+	{
+		pobj = new MonsterWidget(ui->gameView);
+	}
 	if(!pobj)
 		return ;
 

@@ -154,5 +154,8 @@
         <file>resource/monster.png</file>
         <file>settings/eater.txt</file>
         <file>settings/monster.txt</file>
+        <file>resource/bthxx.png</file>
+        <file>resource/mothergubbi.PNG</file>
+        <file>resource/nail.png</file>
     </qresource>
 </RCC>
